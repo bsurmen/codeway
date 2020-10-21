@@ -1,0 +1,49 @@
+/// Regular font family
+/// @type List
+$text-font-stack: "Open Sans", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
+
+/// Code (monospace) font family
+/// @type List
+$code-font-stack: "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Monaco", monospace !default;
+
+/// Color Variables
+/// This site was used for color namings.
+/// https://chir.ag/projects/name-that-color/#6195ED
+
+/// Background
+/// @type Color
+$steel-gray: #1e1e2e;
+
+/// Card Background
+/// @type Color
+$bunting: #2a2f46;
+
+$martinique: #32335a;
+$ebony-clay: #27293b;
+$rhino: #31335d;
+$spun-pearl: #a9a9b1;
+$white: #fff;
+
+$fuchsia-pink: #cd5ac2;
+$orchid: #d05bc5;
+$lavender: #c65cd1;
+$medium-purple2: #b15fe5;
+$medium-purple: #b55ee5;
+$amethyst: #c95ccd;
+
+$froly: #ee778c;
+$apricot: #f08b7e;
+$punch: #dd453c;
+$mandy: #e86181;
+
+$piction-blue: #4aaae1;
+$aquamarine-blue: #67e0cc;
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+    "small": 320px,
+    "medium": 768px,
+    "large": 1024px,
+) !default;

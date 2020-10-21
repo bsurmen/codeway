@@ -1,0 +1,29 @@
+/**
+ * Set up a decent box model on the root element
+ */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  @include grey(0.31335d);
+  background-color: $steel-gray;
+}
+
+a {
+  color: $white;
+  text-decoration: none;
+
+  @include on-event {
+    color: $white;
+    text-decoration: none;
+    outline: none;
+  }
+}
