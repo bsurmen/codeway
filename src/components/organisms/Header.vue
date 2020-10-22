@@ -99,7 +99,7 @@ export default {
     text-transform: uppercase;
 
     &:hover {
-      color: $menu_link_hover_color;
+      // color: $menu_link_hover_color;
     }
 
   

@@ -11,18 +11,76 @@
         :icon="data.icon"
       />
     </section>
-    <section class="home__chart"></section>
-    <section class="home__chart"></section>
+    <section class="home__chart">
+      <line-chart
+        id="active-users"
+        :chartData="positive"
+        :options="chartOptions"
+        label="Active Users"
+      />
+    </section>
+
+    <section class="home__chart">
+      <line-chart
+        id="downloads"
+        :chartData="positive"
+        :options="chartOptions"
+        label="Active Users"
+      />
+    </section>
   </main>
 </template>
 
 <script>
 import InfoCard from "../molecules/InfoCard";
+import LineChart from "../atoms/LineChart";
+
+// import axios from "axios";
 
 export default {
   name: "Home",
   data() {
     return {
+      positive: [
+        { total: 2053, date: "06-05-2020" },
+        { total: 1053, date: "15-09-2020" },
+        { total: 2593, date: "20-07-2020" },
+        { total: 3053, date: "08-12-2020" },
+      ],
+      chartOptions: {
+        responsive: true,
+        legend: {
+          display: false,
+        },
+
+        scales: {
+          yAxes: [
+            {
+              stacked: true,
+              type: "linear",
+              position: "left",
+
+              tick: { min: -100 },
+              gridLines: {
+                color: "#352f4d",
+                circular: true,
+                lineWidth: 3,
+                tickMarkLength: 20,
+              },
+            },
+          ],
+          xAxes: [
+            {
+              gridLines: {
+                color: "#352f4d",
+                circular: true,
+                lineWidth: 3,
+                tickMarkLength: 20,
+              },
+            },
+          ],
+        },
+      },
       cardDatas: [
         {
           icon: "fas fa-user",
@@ -57,6 +115,21 @@ export default {
   },
   components: {
     infoCard: InfoCard,
+    lineChart: LineChart,
+  },
+
+  async created() {
+    // const { data } = await axios.get(
+    //   "https://codeway-dummy-rest-api.herokuapp.com/someapp/daily/activeUsers"
+    // );
+    // const ss = data.payload.data;
+    // for (let d in ss) {
+    //   const yyyy = d.slice(0, 4);
+    //   const mm = d.slice(5, 6);
+    //   const dd = d.slice(6, 8);
+    //   const today = dd + "-" + mm + "-" + yyyy;
+    //   this.positive.push({ total: ss[d], date: today });
+    // }
   },
 };
 </script>
@@ -72,10 +145,7 @@ export default {
   }
 
   &__chart {
-    background-color: red;
-    min-height: 300px;
-    margin: 1em;
-    width: calc(100% - 2em);
+    margin: 2em 1em;
   }
 }
 </style>
