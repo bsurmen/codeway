@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import "./styles/main.scss"
+import "./styles/main.scss";
 import Header from "./components/organisms/Header";
 
 export default {
