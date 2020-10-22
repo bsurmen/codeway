@@ -81,7 +81,6 @@ export default {
 
 #nav {
   //   width: 100%;
-  background-color: red;
   height: 60px;
 }
 
@@ -92,8 +91,7 @@ export default {
     position: relative;
     padding-right: 3rem;
 
-    &--dropdown {
-    }
+
   }
 
   &__link {
@@ -101,11 +99,10 @@ export default {
     text-transform: uppercase;
 
     &:hover {
-      //color: $menu_link_hover_color;
+      color: $menu_link_hover_color;
     }
 
-    &--toggle {
-    }
+  
   }
 
   &__icon {
