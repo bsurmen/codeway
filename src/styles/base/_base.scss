@@ -75,3 +75,14 @@ input {
 li {
   list-style: none;
 }
+
+p {
+  margin: 0;
+}
+
+hr {
+  color: $bunting;
+  height: 2px;
+  width: 100%;
+  border: 2px solid $bunting;
+}
