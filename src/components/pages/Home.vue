@@ -11,6 +11,7 @@
         :icon="data.icon"
       />
     </section>
+
     <section class="home__chart">
       <line-chart
         id="active-users"
@@ -34,6 +35,8 @@
 <script>
 import InfoCard from "../molecules/InfoCard";
 import LineChart from "../atoms/LineChart";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
 // import axios from "axios";
 
@@ -117,7 +120,14 @@ export default {
     infoCard: InfoCard,
     lineChart: LineChart,
   },
+  async mounted() {
+    const token = await firebase.auth().currentUser.getIdToken();
 
+    console.log("tokennn: ", token);
+    // let config = {
+    //   headers: { Authorization: token },
+    // };
+  },
   async created() {
     // const { data } = await axios.get(
     //   "https://codeway-dummy-rest-api.herokuapp.com/someapp/daily/activeUsers"

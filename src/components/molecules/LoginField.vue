@@ -1,25 +1,53 @@
 <template>
-  <app-text text="Please sign in" type="h4" />
-  <app-input placeholder="E-mail address" className="radius--top" />
-  <app-input
-    placeholder="Password"
-    className="radius--bottom"
-    type="password"
-  />
-  <app-button text="Sign In" />
+  <form @submit.prevent="pressed">
+    <app-text text="Please sign in" type="h4" />
+    <input
+      type="email"
+      v-model="email"
+      placeholder="E-mail address"
+      className="radius--top"
+    />
+    <input
+      type="password"
+      v-model="password"
+      placeholder="Password"
+      className="radius--bottom"
+    />
+    <button type="submit">Sign in</button>
+    <div class="error" v-if="error">{{ error.message }}</div>
+    <div class="">{{}}</div>
+  </form>
 </template>
 
-<script>
+ <script>
+import * as firebase from "firebase/app";
+import "firebase/auth";
 import TextField from "../atoms/TextField";
-import Input from "../atoms/Input";
-import Button from "../atoms/Button";
 
 export default {
   name: "LoginField",
   components: {
     appText: TextField,
-    appInput: Input,
-    appButton: Button,
+  },
+  data() {
+    return {
+      email: "",
+      password: "",
+      error: "",
+    };
+  },
+  methods: {
+    async pressed() {
+      try {
+        await firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password);
+
+        this.$router.replace({ name: "Home" });
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 };
 </script>

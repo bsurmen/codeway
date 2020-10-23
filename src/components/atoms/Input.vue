@@ -8,6 +8,7 @@ export default {
   props: {
     placeholder: { type: String },
     type: { type: String, default: "text" },
+    func: Function
   },
 };
 </script>
