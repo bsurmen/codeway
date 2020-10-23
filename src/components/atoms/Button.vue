@@ -1,7 +1,7 @@
 <template>
-    <button :class="[className]" @click="action">
-      {{ text }}
-    </button>
+  <button :class="[className]" @click="action" :type="btnType">
+    {{ text }}
+  </button>
 </template>
 
 <script>
@@ -11,6 +11,7 @@ export default {
     className: String,
     route: { type: String, default: "" },
     action: Function,
+    btnType: String,
   },
   data() {
     return {

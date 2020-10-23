@@ -3,11 +3,7 @@
     <div class="logo">
       <app-image :src="logo" />
     </div>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/sign-in">Sign In</router-link> |
-      <router-link to="/profile">Profile</router-link>
-    </div>
+
     <li
       class="menu__item menu__item--dropdown"
       @click="toggle('ranking')"
@@ -24,7 +20,7 @@
         </li>
 
         <li class="dropdown-menu__item">
-          <a class="dropdown-menu__link" href="#">Log out</a>
+          <a class="dropdown-menu__link" @click="logOut">Log out</a>
         </li>
       </ul>
     </li>
@@ -34,12 +30,15 @@
 <script>
 import Logo from "../../assets/images/hedwig-logo.png";
 import Image from "../atoms/Image";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   name: "Header",
   data() {
     return {
       logo: Logo,
+      loggedIn: false,
       dropDowns: {
         ranking: { open: false },
       },
@@ -49,6 +48,15 @@ export default {
     appImage: Image,
   },
   methods: {
+    async logOut() {
+      try {
+        await firebase.auth().signOut();
+        this.$router.replace({ name: "Sign In" });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     toggle: function (dropdownName) {
       //alert(dropdownName)
       this.dropDowns[dropdownName].open = !this.dropDowns[dropdownName].open;
@@ -59,6 +67,11 @@ export default {
         this.dropDowns[dd].open = false;
       }
     },
+  },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.loggedIn = !!user;
+    });
   },
 };
 </script>
@@ -90,8 +103,6 @@ export default {
   &__item {
     position: relative;
     padding-right: 3rem;
-
-
   }
 
   &__link {
@@ -101,8 +112,6 @@ export default {
     &:hover {
       // color: $menu_link_hover_color;
     }
-
-  
   }
 
   &__icon {
