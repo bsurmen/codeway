@@ -1,5 +1,5 @@
 <template>
-  <canvas :id="id" width="500" height="100"></canvas>
+  <canvas :id="id"  height="65"  />
 </template>
 <script>
 import Chart from "chart.js";
@@ -21,7 +21,7 @@ export default {
     const totals = this.chartData.map((d) => d.total).reverse();
 
     var ctx = document.getElementById(this.id).getContext("2d");
-    var gradient = ctx.createLinearGradient(0, 0, 0, 350);
+    var gradient = ctx.createLinearGradient(0, 0, 0, 200);
     gradient.addColorStop(0, "rgba(52, 55,103, 1)");
     gradient.addColorStop(1, "rgba(52,55,103,.1)");
 

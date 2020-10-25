@@ -13,6 +13,10 @@
     </section>
 
     <section class="home__chart">
+      <div class="home__chart__info">
+        <i class="fad fa-chart-bar"></i>
+        <h4>Daily Active Users</h4>
+      </div>
       <line-chart
         id="active-users"
         :chartData="positive"
@@ -22,6 +26,10 @@
     </section>
 
     <section class="home__chart">
+      <div class="home__chart__info">
+        <i class="fad fa-chart-bar"></i>
+        <h4>Daily Installls</h4>
+      </div>
       <line-chart
         id="downloads"
         :chartData="positive"
@@ -52,6 +60,7 @@ export default {
       ],
       chartOptions: {
         responsive: true,
+        maintainAspectRatio: false,
         legend: {
           display: false,
         },
@@ -146,16 +155,62 @@ export default {
 
 <style lang="scss" scoped>
 .home {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, max-content);
+  row-gap: 1em;
+
+  min-height: calc(100vh - 65px);
+
+  @include lt-md {
+    grid-template-rows: minmax(0, 1fr);
+    margin-bottom: 1em;
+  }
+
   &__info {
     margin: 0 1em;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: auto;
     gap: 1em;
+
+    @include lt-md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include lt-sm {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__chart {
-    margin: 2em 1em;
+    margin: 0 1em;
+    background-color: $bunting;
+    padding: 1em;
+    height: max-content;
+    border-radius: 8px;
+
+    @include lt-md {
+      padding: 0.5em 0.1em;
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 8px 0 1.5rem 8px !important;
+
+      h4 {
+        font-weight: 300;
+        margin: 0;
+        margin-left: 0.8em;
+        color: $white;
+      }
+
+      i {
+        color: $fuchsia-pink;
+      }
+    }
   }
 }
 </style>
