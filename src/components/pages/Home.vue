@@ -13,6 +13,10 @@
     </section>
 
     <section class="home__chart">
+      <div class="home__chart__info">
+        <i class="fad fa-chart-bar"></i>
+        <h4>Daily Active Users</h4>
+      </div>
       <line-chart
         id="active-users"
         :chartData="positive"
@@ -22,6 +26,10 @@
     </section>
 
     <section class="home__chart">
+      <div class="home__chart__info">
+        <i class="fad fa-chart-bar"></i>
+        <h4>Daily Installls</h4>
+      </div>
       <line-chart
         id="downloads"
         :chartData="positive"
@@ -152,10 +160,39 @@ export default {
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: auto;
     gap: 1em;
+
+    @include lt-md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include lt-sm {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__chart {
-    margin: 2em 1em;
+    margin: 1em;
+    background-color: $bunting;
+    padding: 1em;
+    border-radius: 8px;
+
+    &__info {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 8px 0 1.5rem 8px !important;
+
+      h4 {
+        font-weight: 300;
+        margin: 0;
+        margin-left: .8em;
+        color: $white;
+      }
+
+      i {
+        color: $fuchsia-pink;
+      }
+    }
   }
 }
 </style>
