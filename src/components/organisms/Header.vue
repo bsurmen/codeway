@@ -1,26 +1,31 @@
 <template>
   <header class="header">
-    <div class="logo">
+    <div class="logo" @click="this.$router.push({ name: 'Home' })">
       <app-image :src="logo" />
     </div>
 
     <li
       class="menu__item menu__item--dropdown"
-      @click="toggle('ranking')"
-      v-bind:class="{ open: dropDowns.ranking.open }"
+      @click="toggle"
+      :class="{ open: isOpen }"
     >
       <a class="menu__link menu__link--toggle" href="#">
         <i class="fas fa-user profile"></i>
-        <i class="fas fa-sort-down profile"></i>
+        <i class="fas fa-sort-down profile down"></i>
       </a>
 
       <ul class="dropdown-menu">
         <li class="dropdown-menu__item">
-          <a class="dropdown-menu__link" href="#">Profile</a>
+          <div
+            class="dropdown-menu__link"
+            @click="this.$router.push({ name: 'Profile' })"
+          >
+            Profile
+          </div>
         </li>
 
         <li class="dropdown-menu__item">
-          <a class="dropdown-menu__link" @click="logOut">Log out</a>
+          <div class="dropdown-menu__link" @click="logOut">Log out</div>
         </li>
       </ul>
     </li>
@@ -39,9 +44,7 @@ export default {
     return {
       logo: Logo,
       loggedIn: false,
-      dropDowns: {
-        ranking: { open: false },
-      },
+      isOpen: false,
     };
   },
   components: {
@@ -57,15 +60,12 @@ export default {
       }
     },
 
-    toggle: function (dropdownName) {
-      //alert(dropdownName)
-      this.dropDowns[dropdownName].open = !this.dropDowns[dropdownName].open;
+    toggle: function () {
+      this.isOpen = !this.isOpen;
     },
 
     close: function () {
-      for (let dd in this.dropDowns) {
-        this.dropDowns[dd].open = false;
-      }
+      this.isOpen = false;
     },
   },
   created() {
@@ -81,19 +81,27 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 0.5em 1em 1.5em 1em;
 }
 
 .logo {
-  width: 100px;
+  width: 120px;
   height: 100%;
+  cursor: pointer;
 }
 
 .profile {
   color: $fuchsia-pink;
+  font-size: 1.4rem;
+}
+
+.down {
+  font-size: 0.9rem;
+  position: relative;
+  bottom: 11px;
 }
 
 #nav {
-  //   width: 100%;
   height: 60px;
 }
 
@@ -102,16 +110,6 @@ export default {
 
   &__item {
     position: relative;
-    padding-right: 3rem;
-  }
-
-  &__link {
-    //color: $menu_link_color;
-    text-transform: uppercase;
-
-    &:hover {
-      // color: $menu_link_hover_color;
-    }
   }
 
   &__icon {
@@ -126,12 +124,12 @@ export default {
 .dropdown-menu {
   font-size: 0.9rem;
   position: absolute;
-  min-width: 150px;
-  top: 2.2rem;
-  right: 2.2rem;
+  min-width: 200px;
+  top: 1.5rem;
+  right: -0.6rem;
   display: none;
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .dropdown-menu__item:first-child .dropdown-menu__link {
@@ -148,12 +146,13 @@ export default {
   display: block;
 
   padding: 1rem;
-  color: grey;
-  background-color: #fafafa;
+  color: $steel-gray;
+  background-color: $white;
 
   &:hover {
-    color: green;
+    color: $martinique;
     background-color: #ccc;
   }
 }
 </style>
+
