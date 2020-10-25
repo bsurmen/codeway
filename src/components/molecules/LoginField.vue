@@ -52,5 +52,18 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.radius {
+  &--top {
+    border-radius: 8px 8px 0 0;
+    border-bottom: none;
+  }
+  &--center {
+    border-radius: 0;
+    border-bottom: none;
+  }
+  &--bottom {
+    border-radius: 0 0 8px 8px;
+  }
+}
 </style>

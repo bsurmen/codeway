@@ -60,6 +60,7 @@ export default {
       ],
       chartOptions: {
         responsive: true,
+        maintainAspectRatio: false,
         legend: {
           display: false,
         },
@@ -154,6 +155,18 @@ export default {
 
 <style lang="scss" scoped>
 .home {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, max-content);
+  row-gap: 1em;
+
+  min-height: calc(100vh - 65px);
+
+  @include lt-md {
+    grid-template-rows: minmax(0, 1fr);
+    margin-bottom: 1em;
+  }
+
   &__info {
     margin: 0 1em;
     display: grid;
@@ -170,10 +183,15 @@ export default {
   }
 
   &__chart {
-    margin: 1em;
+    margin: 0 1em;
     background-color: $bunting;
     padding: 1em;
+    height: max-content;
     border-radius: 8px;
+
+    @include lt-md {
+      padding: 0.5em 0.1em;
+    }
 
     &__info {
       display: flex;
@@ -185,7 +203,7 @@ export default {
       h4 {
         font-weight: 300;
         margin: 0;
-        margin-left: .8em;
+        margin-left: 0.8em;
         color: $white;
       }
 

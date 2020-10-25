@@ -78,15 +78,21 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+  height: 62px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 0.5em 1em 1.5em 1em;
+  align-items: center;
+  // padding: 0.8rem 1em 1.5rem 1em;
+  padding: 0 1em;
+
+  @include gt-lg {
+    grid-column: 2/3;
+  }
 }
 
 .logo {
   width: 120px;
-  height: 100%;
   cursor: pointer;
 }
 

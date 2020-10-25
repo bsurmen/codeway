@@ -1,5 +1,5 @@
 <template>
-  <input :type="type" :placeholder="placeholder" />
+  <input :type="type" :placeholder="placeholder" :class="className" />
 </template>
 
 <script>
@@ -8,13 +8,13 @@ export default {
   props: {
     placeholder: { type: String },
     type: { type: String, default: "text" },
-    func: Function
+    className: { type: String },
+    func: Function,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
 .radius {
   &--top {
     border-radius: 8px 8px 0 0;

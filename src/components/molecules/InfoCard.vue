@@ -37,7 +37,7 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  padding: 1.5rem;
+  padding: 1rem;
   background-color: $bunting;
   display: flex;
   flex-direction: column;
@@ -46,7 +46,7 @@ export default {
 
   &__name {
     color: $spun-pearl;
-    font-size: 0.6em;
+    font-size: 0.5em;
   }
 
   &__top {
@@ -57,8 +57,8 @@ export default {
 
     &__icon {
       border-radius: 9999px;
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       display: flex;
       justify-content: center;
       align-items: center;

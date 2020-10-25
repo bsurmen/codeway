@@ -1,7 +1,7 @@
 <template>
   <div class="sign">
     <div class="logo">
-      <app-image :src="appLogo"/>
+      <app-image :src="appLogo" />
     </div>
     <div class="login">
       <app-login />
@@ -34,8 +34,8 @@ export default {
 
 <style lang="scss" scoped>
 .sign {
-  // width: 100%;
-  height: calc(100% - 60px);
+  width: 100%;
+  min-height: 100vh;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -43,15 +43,16 @@ export default {
   align-items: center;
 }
 .logo {
-  width: calc(10rem + 5vw);
+  width: calc(15rem + 2vw);
 }
 
 .login {
-  width: calc(25rem + 1vw);
+  width: calc(20rem + 2vw);
 }
 
 .copyright {
   color: $spun-pearl;
-  font-size: 0.7em;
+  font-size: 0.6em;
+  margin-top: 3em;
 }
 </style>
