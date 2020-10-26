@@ -1,12 +1,18 @@
 <template>
   <div class="card">
-    <div class="card__top">
+    <div class="card__top" v-if="cardData">
       <div class="card__top__icon">
         <i :class="icon + ` card__top__icon card__top__icon${iconColor}`"></i>
       </div>
       <div class="card__top__info">
         <app-text :text="cardName" className="card__name" />
-        <app-text :text="cardData" />
+        <app-text
+          :text="
+            id === 'duration'
+              ? Number(cardData).toFixed(2) + ' mins'
+              : cardData
+          "
+        />
       </div>
     </div>
     <hr />
@@ -26,6 +32,7 @@ export default {
     appText: TextField,
   },
   props: {
+    id: String,
     iconColor: String,
     cardName: String,
     cardData: String,

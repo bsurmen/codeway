@@ -2,7 +2,7 @@
   <canvas :id="id" height="65" />
 </template>
 <script>
-import useDaily from "../../utils/useDaily";
+import useDaily from "../../utils/useDailyData";
 
 export default {
   name: "LineChart",
@@ -16,7 +16,7 @@ export default {
     },
   },
   setup(props) {
-    useDaily(props.id, "/daily/activeUsers");
+    useDaily(props.id, "/daily/activeUsers", props.label);
   },
 };
 </script>

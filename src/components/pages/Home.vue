@@ -9,6 +9,7 @@
         :cardData="data.cardData"
         :subName="data.subName"
         :icon="data.icon"
+        :id="data.id"
       />
     </section>
 
@@ -17,19 +18,15 @@
         <i class="fad fa-chart-bar"></i>
         <h4>Daily Active Users</h4>
       </div>
-      <line-chart-active
-        id="active-users"
-        :options="chartOptions"
-        label="Active Users"
-      />
+      <line-chart-active id="active-users" label="Users" />
     </section>
 
-    <section class="home__chart" >
+    <section class="home__chart">
       <div class="home__chart__info">
         <i class="fad fa-chart-bar"></i>
         <h4>Daily Installs</h4>
       </div>
-      <line-chart id="downloads" :options="chartOptions" label="Active Users" />
+      <line-chart id="downloads" label="Installs" />
     </section>
   </main>
 </template>
@@ -38,6 +35,7 @@
 import InfoCard from "../molecules/InfoCard";
 import LineChart from "../atoms/LineChart";
 import LineChartActive from "../atoms/LineChartActive";
+import { ref, onMounted, computed } from "vue";
 // import * as firebase from "firebase/app";
 // import "firebase/auth";
 
@@ -45,99 +43,72 @@ import LineChartActive from "../atoms/LineChartActive";
 
 export default {
   name: "Home",
-  data() {
-    return {
-      chartOptions: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false,
-        },
+  setup() {
+    const activeUsers = ref([]);
+    const downloads = ref([]);
+    const sessionDuration = ref([]);
+    const paidUsers = ref([]);
 
-        scales: {
-          yAxes: [
-            {
-              stacked: true,
-              type: "linear",
-              position: "left",
-
-              tick: { min: -100 },
-              gridLines: {
-                color: "#352f4d",
-                circular: true,
-                lineWidth: 3,
-                tickMarkLength: 20,
-              },
-            },
-          ],
-          xAxes: [
-            {
-              gridLines: {
-                color: "#352f4d",
-                circular: true,
-                lineWidth: 3,
-                tickMarkLength: 20,
-              },
-            },
-          ],
-        },
+    const cardDatas = computed(() => [
+      {
+        icon: "fas fa-user",
+        iconColor: "--apricot",
+        cardName: "Active Users",
+        cardData: Object.values(activeUsers.value)[0],
+        subName: "Live user count",
       },
-      cardDatas: [
-        {
-          icon: "fas fa-user",
-          iconColor: "--apricot",
-          cardName: "Active Users",
-          cardData: "1234",
-          subName: "Live user count",
-        },
-        {
-          icon: "fas fa-download",
-          iconColor: "--purple",
-          cardName: "Downloads",
-          cardData: "5324",
-          subName: "Total install count",
-        },
-        {
-          icon: "far fa-eye",
-          iconColor: "--turquois",
-          cardName: "Active Users",
-          cardData: "17.1 mins",
-          subName: "Total view count",
-        },
-        {
-          icon: "fas fa-download",
-          iconColor: "--red",
-          cardName: "Download",
-          cardData: "2423",
-          subName: "Total paying user count",
-        },
-      ],
+      {
+        icon: "fas fa-download",
+        iconColor: "--purple",
+        cardName: "Downloads",
+        cardData: Object.values(downloads.value)[0],
+        subName: "Total install count",
+      },
+      {
+        id: "duration",
+        icon: "far fa-eye",
+        iconColor: "--turquois",
+        cardName: "Avg. Session Duration",
+        cardData: Object.values(sessionDuration.value)[0],
+        subName: "Total view count",
+      },
+      {
+        icon: "fas fa-download",
+        iconColor: "--red",
+        cardName: "Paid Users",
+        cardData: Object.values(paidUsers.value)[0],
+        subName: "Total paying user count",
+      },
+    ]);
+
+    const getInfoCardData = async (url, valueType) => {
+      fetch(`https://codeway-dummy-rest-api.herokuapp.com/someapp${url}`)
+        .then((res) => res.json())
+        .then((data) => {
+          valueType.value = data.payload;
+        });
+    };
+
+    onMounted(() => {
+      getInfoCardData("/rt/activeUsers", activeUsers);
+      getInfoCardData("/rt/downloads", downloads);
+      getInfoCardData("/rt/sessionDuration", sessionDuration);
+      getInfoCardData("/rt/paidUsers", paidUsers);
+    });
+
+    return {
+      activeUsers,
+      downloads,
+      sessionDuration,
+      paidUsers,
+      cardDatas,
     };
   },
+
   components: {
     infoCard: InfoCard,
     lineChart: LineChart,
     lineChartActive: LineChartActive,
-  },
-  async mounted() {
-    // const token = await firebase.auth().currentUser.getIdToken();
-    // console.log("tokennn: ", token);
-    // let config = {
-    //   headers: { Authorization: token },
-    // };
-  },
-  async created() {
-    // const { data } = await axios.get(
-    //   "https://codeway-dummy-rest-api.herokuapp.com/someapp/daily/activeUsers"
-    // );
-    // const ss = data.payload.data;
-    // for (let d in ss) {
-    //   const yyyy = d.slice(0, 4);
-    //   const mm = d.slice(5, 6);
-    //   const dd = d.slice(6, 8);
-    //   const today = dd + "-" + mm + "-" + yyyy;
-    //   this.positive.push({ total: ss[d], date: today });
-    // }
   },
 };
 </script>

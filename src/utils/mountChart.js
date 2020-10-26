@@ -1,6 +1,6 @@
 import Chart from "chart.js";
 
-export const mountChart = (id, date, total) => {
+export const mountChart = (id, date, total, label) => {
   var ctx = document.getElementById(id).getContext("2d");
   var gradient = ctx.createLinearGradient(0, 0, 0, 200);
   gradient.addColorStop(0, "rgba(52, 55,103, 1)");
@@ -13,7 +13,7 @@ export const mountChart = (id, date, total) => {
       datasets: [
         {
           lineTension: 0.2,
-          label: "Active Users",
+          label: label,
           data: total,
           backgroundColor: gradient,
           pointBackgroundColor: "#b15fe5",
