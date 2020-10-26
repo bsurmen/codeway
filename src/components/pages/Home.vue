@@ -17,25 +17,19 @@
         <i class="fad fa-chart-bar"></i>
         <h4>Daily Active Users</h4>
       </div>
-      <line-chart
+      <line-chart-active
         id="active-users"
-        :chartData="positive"
         :options="chartOptions"
         label="Active Users"
       />
     </section>
 
-    <section class="home__chart">
+    <section class="home__chart" >
       <div class="home__chart__info">
         <i class="fad fa-chart-bar"></i>
-        <h4>Daily Installls</h4>
+        <h4>Daily Installs</h4>
       </div>
-      <line-chart
-        id="downloads"
-        :chartData="positive"
-        :options="chartOptions"
-        label="Active Users"
-      />
+      <line-chart id="downloads" :options="chartOptions" label="Active Users" />
     </section>
   </main>
 </template>
@@ -43,8 +37,9 @@
 <script>
 import InfoCard from "../molecules/InfoCard";
 import LineChart from "../atoms/LineChart";
-import * as firebase from "firebase/app";
-import "firebase/auth";
+import LineChartActive from "../atoms/LineChartActive";
+// import * as firebase from "firebase/app";
+// import "firebase/auth";
 
 // import axios from "axios";
 
@@ -52,12 +47,6 @@ export default {
   name: "Home",
   data() {
     return {
-      positive: [
-        { total: 2053, date: "06-05-2020" },
-        { total: 1053, date: "15-09-2020" },
-        { total: 2593, date: "20-07-2020" },
-        { total: 3053, date: "08-12-2020" },
-      ],
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
@@ -128,11 +117,11 @@ export default {
   components: {
     infoCard: InfoCard,
     lineChart: LineChart,
+    lineChartActive: LineChartActive,
   },
   async mounted() {
-    const token = await firebase.auth().currentUser.getIdToken();
-
-    console.log("tokennn: ", token);
+    // const token = await firebase.auth().currentUser.getIdToken();
+    // console.log("tokennn: ", token);
     // let config = {
     //   headers: { Authorization: token },
     // };
@@ -160,7 +149,7 @@ export default {
   grid-template-rows: repeat(3, max-content);
   row-gap: 1em;
 
-  min-height: calc(100vh - 65px);
+  height: calc(100vh - 65px);
 
   @include lt-md {
     grid-template-rows: minmax(0, 1fr);

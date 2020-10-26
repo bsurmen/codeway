@@ -16,7 +16,7 @@ export default {
     },
   },
   setup(props) {
-    useDaily(props.id, "/daily/downloads");
+    useDaily(props.id, "/daily/activeUsers");
   },
 };
 </script>
