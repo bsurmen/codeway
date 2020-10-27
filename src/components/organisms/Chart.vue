@@ -40,6 +40,7 @@ export default {
       padding: 0.5em 0.1em;
     }
 
+
     &__text {
       font-weight: 300;
       margin: 0;

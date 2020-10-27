@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="pressed">
+  <form @submit.prevent="signIn">
     <app-text text="Please sign in" type="h4" />
     <input
       type="email"
@@ -21,6 +21,7 @@
  <script>
 import "firebase/auth";
 import { reactive, toRefs } from "vue";
+import { useRouter } from "vue-router";
 import * as firebase from "firebase/app";
 import TextField from "../atoms/TextField";
 
@@ -29,22 +30,23 @@ export default {
   components: {
     appText: TextField,
   },
-  setup(props, { root }) {
+  setup() {
     const login = reactive({ email: "", password: "", error: "" });
+    const router = useRouter();
 
-    async function pressed() {
+    async function signIn() {
       try {
         await firebase
           .auth()
           .signInWithEmailAndPassword(this.email, this.password);
 
-        root.$router.replace({ name: "Home" });
+        router.replace({ name: "Home" });
       } catch (err) {
         console.log(err);
       }
     }
 
-    return { ...toRefs(login), pressed };
+    return { ...toRefs(login), signIn };
   },
 };
 </script>

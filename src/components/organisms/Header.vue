@@ -35,6 +35,7 @@
 <script>
 import Logo from "../../assets/images/hedwig-logo.png";
 import { reactive, toRefs } from "vue";
+import { useRouter } from "vue-router";
 import Image from "../atoms/Image";
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -44,21 +45,23 @@ export default {
   components: {
     appImage: Image,
   },
-  setup(props, { root }) {
+  setup() {
     const data = reactive({ logo: Logo, loggedIn: false, isOpen: false });
 
-    firebase.auth().onAuthStateChanged((user) => {
-      data.loggedIn = !!user;
-    });
+    const router = useRouter();
 
     async function logOut() {
       try {
         await firebase.auth().signOut();
-        root.$router.replace({ name: "Sign In" });
+        router.replace({ name: "Sign In" });
       } catch (err) {
         console.log(err);
       }
     }
+
+    firebase.auth().onAuthStateChanged((user) => {
+      data.loggedIn = !!user;
+    });
 
     function toggle() {
       this.isOpen = !this.isOpen;
@@ -68,7 +71,7 @@ export default {
       this.isOpen = false;
     }
 
-    return { ...toRefs(data), logOut, toggle, close };
+    return { ...toRefs(data), toggle, close, logOut };
   },
 };
 </script>

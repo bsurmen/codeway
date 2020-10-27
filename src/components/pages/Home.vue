@@ -30,7 +30,7 @@ import axios from "../../services/axios";
 import URL from "../../lib/url";
 
 import InfoCard from "../molecules/InfoCard";
-import Chart from "../molecules/Chart";
+import Chart from "../organisms/Chart";
 
 export default {
   name: "Home",
@@ -127,6 +127,10 @@ export default {
   @include lt-md {
     grid-template-rows: minmax(0, 1fr);
     margin-bottom: 1em;
+  }
+
+  @include lt-sm {
+    grid-template-rows: repeat(6, 1fr);
   }
 
   &__info {
