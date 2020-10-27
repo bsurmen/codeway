@@ -14,3 +14,7 @@ export default function() {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 }
+
+export const getUserToken = async () => {
+  return await firebase.auth().currentUser.getIdToken();
+};
