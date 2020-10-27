@@ -12,7 +12,6 @@ export const mountChart = (id, date, total, label) => {
       labels: date,
       datasets: [
         {
-          lineTension: 0.2,
           label: label,
           data: total,
           backgroundColor: gradient,
