@@ -5,8 +5,8 @@ Codeway Case
 **codeway-burak.web.app** is a small piece of project built with Vue 3. You will most likely find it under [codeway-burak](https://codeway-burak.web.app/).
 
 #### Screenshot
-![Screenshot of Homepage](/src/assets/ss_home.png)
-![Screenshot of Homepage](/src/assets/ss_login.png)
+![Screenshot of Homepage](/src/assets/images/ss_home.png)
+![Screenshot of Homepage](/src/assets/images/ss_login.png)
 
 ## Technology
 * Vue CLI 3
