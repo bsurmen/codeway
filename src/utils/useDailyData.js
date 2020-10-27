@@ -1,5 +1,6 @@
 import { toRefs, reactive } from "vue";
 import { mountChart } from "./mountChart";
+import axios from "../services/axios";
 
 export default function(id, url, label) {
   let dailyChartData = reactive({
@@ -10,13 +11,8 @@ export default function(id, url, label) {
     fetching: false,
   });
 
-  const { response, date, total, error, fetching } = fetchData(
-    `https://codeway-dummy-rest-api.herokuapp.com/someapp${url}`,
-    {},
-    id,
-    label
-  );
-  dailyChartData.list = response;
+  const { date, total, error, fetching } = fetchData(url, {}, id, label);
+
   dailyChartData.date = date;
   dailyChartData.total = total;
   dailyChartData.error = error;
@@ -25,7 +21,7 @@ export default function(id, url, label) {
   return { ...toRefs(dailyChartData) };
 }
 
-// Converts chart date labels into new
+// Converts date value format yyyymmdd => dd-mm-yyyy
 const convertDateToString = (date) => {
   const yyyy = date.slice(0, 4);
   const mm = date.slice(5, 6);
@@ -36,22 +32,21 @@ const convertDateToString = (date) => {
 
 const fetchData = async (url, options, id, label) => {
   const state = reactive({
-    response: [],
     date: [],
     total: [],
     error: null,
     fetching: false,
   });
 
-  state.fetching = true;
   try {
-    const res = await fetch(url, options);
-    const json = await res.json();
-    state.response = json;
-    for (let d in json.payload.data) {
-      const date = convertDateToString(d);
+    state.fetching = true;
+    const { data } = await axios.get(url, options);
+    const res = data.payload.data;
+
+    for (let key in res) {
+      const date = convertDateToString(key);
       state.date.push(date);
-      state.total.push(json.payload.data[d]);
+      state.total.push(res[key]);
     }
     mountChart(id, state.date, state.total, label);
   } catch (errors) {

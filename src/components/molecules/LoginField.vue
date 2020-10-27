@@ -15,13 +15,13 @@
     />
     <button type="submit">Sign in</button>
     <div class="error" v-if="error">{{ error.message }}</div>
-    <div class="">{{}}</div>
   </form>
 </template>
 
  <script>
-import * as firebase from "firebase/app";
 import "firebase/auth";
+import { reactive, toRefs } from "vue";
+import * as firebase from "firebase/app";
 import TextField from "../atoms/TextField";
 
 export default {
@@ -29,25 +29,22 @@ export default {
   components: {
     appText: TextField,
   },
-  data() {
-    return {
-      email: "",
-      password: "",
-      error: "",
-    };
-  },
-  methods: {
-    async pressed() {
+  setup(props, { root }) {
+    const login = reactive({ email: "", password: "", error: "" });
+
+    async function pressed() {
       try {
         await firebase
           .auth()
           .signInWithEmailAndPassword(this.email, this.password);
 
-        this.$router.replace({ name: "Home" });
+        root.$router.replace({ name: "Home" });
       } catch (err) {
         console.log(err);
       }
-    },
+    }
+
+    return { ...toRefs(login), pressed };
   },
 };
 </script>

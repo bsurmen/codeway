@@ -11,15 +11,10 @@ export default {
     label: {
       type: String,
     },
-    options: {
-      type: Object,
-    },
+    url: { type: String, required: true },
   },
   setup(props) {
-    useDaily(props.id, "/daily/downloads", props.label);
+    useDaily(props.id, props.url, props.label);
   },
 };
 </script>
-
-<style>
-</style>

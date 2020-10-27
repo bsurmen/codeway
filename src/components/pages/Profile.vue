@@ -2,18 +2,35 @@
   <div class="profile">
     <div class="profile__card">
       <app-text text="Email:" className="mail" />
-      <app-text text="test@gmail.com" className="mail" />
+      <app-text :text="email" className="mail" />
     </div>
   </div>
 </template>
 
 <script>
 import TextField from "../atoms/TextField";
+import { onMounted, ref } from "vue";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   name: "Profile",
   components: {
     appText: TextField,
+  },
+  setup() {
+    const email = ref("");
+
+    const getUserEmail = async () => {
+      const user = await firebase.auth().currentUser;
+      email.value = user.email;
+    };
+
+    onMounted(() => {
+      getUserEmail();
+    });
+
+    return { email };
   },
 };
 </script>
