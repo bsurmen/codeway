@@ -26,8 +26,8 @@
 
 <script>
 import { ref, onMounted, computed } from "vue";
-import axios from "../../services/axios";
 import URL from "../../lib/url";
+import useFetch from "../../utils/useFetch";
 
 import InfoCard from "../molecules/InfoCard";
 import Chart from "../organisms/Chart";
@@ -91,16 +91,23 @@ export default {
       },
     ]);
 
+    const cardInfo = [
+      { url: URL.activeUsers, type: activeUsers },
+      { url: URL.downloads, type: downloads },
+      {
+        url: URL.avgSessionDuration,
+        type: avgSessionDuration,
+      },
+      { url: URL.paidUsers, type: paidUsers },
+    ];
+
     const getInfoCardData = async (url, valueType) => {
-      const { data } = await axios.get(url);
-      valueType.value = data.payload;
+      const { response } = await useFetch(url);
+      valueType.value = response.value.payload;
     };
 
     onMounted(() => {
-      getInfoCardData(URL.activeUsers, activeUsers);
-      getInfoCardData(URL.downloads, downloads);
-      getInfoCardData(URL.avgSessionDuration, avgSessionDuration);
-      getInfoCardData(URL.paidUsers, paidUsers);
+      cardInfo.forEach(({ url, type }) => getInfoCardData(url, type));
     });
 
     return {
@@ -125,12 +132,8 @@ export default {
   height: calc(100vh - 65px);
 
   @include lt-md {
-    grid-template-rows: minmax(0, 1fr);
-    margin-bottom: 1em;
-  }
-
-  @include lt-sm {
     grid-template-rows: repeat(6, 1fr);
+    margin-bottom: 1em;
   }
 
   &__info {
