@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="logo" @click="this.$router.push({ name: 'Home' })">
-      <app-image :src="logo" alt="app logo"/>
+      <app-image :src="logo" alt="app logo" />
     </div>
     <ul>
       <li
@@ -107,10 +107,6 @@ export default {
   bottom: 11px;
 }
 
-#nav {
-  height: 60px;
-}
-
 .menu {
   display: flex;
 
@@ -131,11 +127,25 @@ export default {
   font-size: 0.9rem;
   position: absolute;
   min-width: 200px;
-  top: 1.5rem;
+  top: 2.5rem;
   right: -0.6rem;
   display: none;
   border-radius: 4px;
   cursor: pointer;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -8px;
+    right: 5px;
+
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid $white;
+  }
 }
 
 .dropdown-menu__item:first-child .dropdown-menu__link {
@@ -150,7 +160,6 @@ export default {
 
 .dropdown-menu__link {
   display: block;
-
   padding: 1rem;
   color: $steel-gray;
   background-color: $white;
