@@ -16,7 +16,8 @@ Codeway Frontend Case
 * Axios
 * Chart.js
 * Firebase
-======
+
+## Methodology
 * Atomic Design
 * BEM
 
