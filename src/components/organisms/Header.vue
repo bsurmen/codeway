@@ -34,44 +34,44 @@
 
 <script>
 import Logo from "../../assets/images/hedwig-logo.png";
+import { reactive, toRefs } from "vue";
+import { useRouter } from "vue-router";
 import Image from "../atoms/Image";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
 export default {
   name: "Header",
-  data() {
-    return {
-      logo: Logo,
-      loggedIn: false,
-      isOpen: false,
-    };
-  },
   components: {
     appImage: Image,
   },
-  methods: {
-    async logOut() {
+  setup() {
+    const data = reactive({ logo: Logo, loggedIn: false, isOpen: false });
+
+    const router = useRouter();
+
+    async function logOut() {
       try {
         await firebase.auth().signOut();
-        this.$router.replace({ name: "Sign In" });
+        router.replace({ name: "Sign In" });
       } catch (err) {
         console.log(err);
       }
-    },
+    }
 
-    toggle: function () {
-      this.isOpen = !this.isOpen;
-    },
-
-    close: function () {
-      this.isOpen = false;
-    },
-  },
-  created() {
     firebase.auth().onAuthStateChanged((user) => {
-      this.loggedIn = !!user;
+      data.loggedIn = !!user;
     });
+
+    function toggle() {
+      this.isOpen = !this.isOpen;
+    }
+
+    function close() {
+      this.isOpen = false;
+    }
+
+    return { ...toRefs(data), toggle, close, logOut };
   },
 };
 </script>
@@ -83,7 +83,6 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  // padding: 0.8rem 1em 1.5rem 1em;
   padding: 0 1em;
 
   @include gt-lg {

@@ -13,13 +13,9 @@ export default {
     action: Function,
     btnType: String,
   },
-  data() {
-    return {
-      type: this.route,
-    };
+  setup(props) {
+    const type = ref(props.route);
+    return { type };
   },
 };
 </script>
-
-<style lang="scss">
-</style>

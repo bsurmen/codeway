@@ -1,17 +1,19 @@
 <template>
   <div class="card">
-    <div class="card__top">
+    <div class="card__top" v-if="cardData">
       <div class="card__top__icon">
         <i :class="icon + ` card__top__icon card__top__icon${iconColor}`"></i>
       </div>
       <div class="card__top__info">
         <app-text :text="cardName" className="card__name" />
-        <app-text :text="cardData" />
+        <app-text
+          :text="id === 'duration' ? convertToMinutes(cardData) : cardData"
+        />
       </div>
     </div>
     <hr />
     <div class="card__bottom">
-      <i class="far fa-undo-alt card__name undo"></i>
+      <i class="far fa-undo-alt card__name"></i>
       <app-text :text="subName" className="card__name" />
     </div>
   </div>
@@ -26,11 +28,19 @@ export default {
     appText: TextField,
   },
   props: {
+    id: String,
     iconColor: String,
     cardName: String,
-    cardData: String,
+    cardData: [String, Number],
     subName: String,
     icon: String,
+  },
+  setup() {
+    function convertToMinutes(data) {
+      return Number(data).toFixed(2) + " mins";
+    }
+
+    return { convertToMinutes };
   },
 };
 </script>
@@ -47,21 +57,20 @@ export default {
   &__name {
     color: $spun-pearl;
     font-size: 0.5em;
+    margin-right: 0.7em;
   }
 
   &__top {
-    display: flex;
+    @include flex {
+      justify-content: space-between;
+    }
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
 
     &__icon {
+      @include flex;
       border-radius: 9999px;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      width: $info-icon;
+      height: $info-icon;
 
       &--apricot {
         background: $medium-purple;
@@ -86,19 +95,17 @@ export default {
     }
 
     &__info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      @include flex {
+        align-items: flex-end;
+        flex-direction: column;
+      }
     }
   }
 
   &__bottom {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .undo {
-    margin-right: 0.7em;
+    @include flex {
+      justify-content: flex-start;
+    }
   }
 }
 </style>

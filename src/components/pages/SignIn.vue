@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { ref } from "vue";
 import Logo from "../../assets/images/hedwig-icon.png";
 
 import Image from "../atoms/Image";
@@ -19,15 +20,14 @@ import LoginField from "../molecules/LoginField";
 
 export default {
   name: "SignIn",
-  data() {
-    return {
-      appLogo: Logo,
-    };
-  },
   components: {
     appImage: Image,
     appLogin: LoginField,
     appText: TextField,
+  },
+  setup() {
+    const appLogo = ref(Logo);
+    return { appLogo };
   },
 };
 </script>

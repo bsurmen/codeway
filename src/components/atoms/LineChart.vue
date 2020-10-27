@@ -1,8 +1,8 @@
 <template>
-  <canvas :id="id"  height="65"  />
+  <canvas :id="id" height="65" />
 </template>
 <script>
-import Chart from "chart.js";
+import useDaily from "../../utils/useDailyData";
 
 export default {
   name: "LineChart",
@@ -11,44 +11,10 @@ export default {
     label: {
       type: String,
     },
-    chartData: { type: Array },
-    options: {
-      type: Object,
-    },
+    url: { type: String, required: true },
   },
-  mounted() {
-    const dates = this.chartData.map((d) => d.date).reverse();
-    const totals = this.chartData.map((d) => d.total).reverse();
-
-    var ctx = document.getElementById(this.id).getContext("2d");
-    var gradient = ctx.createLinearGradient(0, 0, 0, 200);
-    gradient.addColorStop(0, "rgba(52, 55,103, 1)");
-    gradient.addColorStop(1, "rgba(52,55,103,.1)");
-
-    new Chart(document.getElementById(this.id), {
-      type: "line",
-      data: {
-        labels: dates,
-        datasets: [
-          {
-            lineTension: 0.2,
-            label: this.label,
-            data: totals,
-            backgroundColor: gradient,
-            pointBackgroundColor: "#b15fe5",
-            pointHoverBackgroundColor: "#b05eea",
-            pointHoverRadius: 6,
-            spanGaps: true,
-            borderColor: "#b15fe5",
-            borderWidth: 3,
-          },
-        ],
-      },
-      options: this.options,
-    });
+  setup(props) {
+    useDaily(props.id, props.url, props.label);
   },
 };
 </script>
-
-<style>
-</style>
