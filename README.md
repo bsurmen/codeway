@@ -1,6 +1,6 @@
 Codeway Frontend Case
 ======
-[!Code Quality Score] (https://www.code-inspector.com/project/15311/score/svg) [!Code Grade] (https://www.code-inspector.com/project/15311/status/svg) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bsurmen_codeway&metric=alert_status)](https://sonarcloud.io/dashboard?id=bsurmen_codeway)
+[![Code Quality Score](https://www.code-inspector.com/project/15311/score/svg)]() [![Code Grade](https://www.code-inspector.com/project/15311/status/svg)]() [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bsurmen_codeway&metric=alert_status)](https://sonarcloud.io/dashboard?id=bsurmen_codeway)
 
 **Hedwig** is a frontend case project that being asked creating with Vue.js by Codeway. You will most likely find live demo under [codeway-burak](https://codeway-burak.web.app/).
 
