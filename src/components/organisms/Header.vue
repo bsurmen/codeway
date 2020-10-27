@@ -18,6 +18,14 @@
           <li class="dropdown-menu__item">
             <div
               class="dropdown-menu__link"
+              @click="this.$router.push({ name: 'Home' })"
+            >
+              Home
+            </div>
+          </li>
+          <li class="dropdown-menu__item">
+            <div
+              class="dropdown-menu__link"
               @click="this.$router.push({ name: 'Profile' })"
             >
               Profile
