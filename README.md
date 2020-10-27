@@ -16,6 +16,9 @@ Codeway Frontend Case
 * Axios
 * Chart.js
 * Firebase
+======
+* Atomic Design
+* BEM
 
 ## Contact
 Created by [@bsurmen](https://www.burak.works/) - feel free to contact me!
