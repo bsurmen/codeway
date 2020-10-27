@@ -1,5 +1,5 @@
 <template>
-  <img :src="src" :class="[`img ${className}`]" />
+  <img :src="src" :class="[`img ${className}`]" :alt="alt" />
 </template>
 
 <script>
@@ -8,6 +8,7 @@ export default {
   props: {
     src: { type: String, required: true },
     className: { type: String, default: "" },
+    alt: { type: String, default: "image", required: true },
   },
 };
 </script>

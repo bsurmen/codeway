@@ -1,34 +1,35 @@
 <template>
   <header class="header">
     <div class="logo" @click="this.$router.push({ name: 'Home' })">
-      <app-image :src="logo" />
+      <app-image :src="logo" alt="app logo"/>
     </div>
+    <ul>
+      <li
+        class="menu__item menu__item--dropdown"
+        @click="toggle"
+        :class="{ open: isOpen }"
+      >
+        <a class="menu__link menu__link--toggle" href="#">
+          <i class="fas fa-user profile"></i>
+          <i class="fas fa-sort-down profile down"></i>
+        </a>
 
-    <li
-      class="menu__item menu__item--dropdown"
-      @click="toggle"
-      :class="{ open: isOpen }"
-    >
-      <a class="menu__link menu__link--toggle" href="#">
-        <i class="fas fa-user profile"></i>
-        <i class="fas fa-sort-down profile down"></i>
-      </a>
+        <ul class="dropdown-menu">
+          <li class="dropdown-menu__item">
+            <div
+              class="dropdown-menu__link"
+              @click="this.$router.push({ name: 'Profile' })"
+            >
+              Profile
+            </div>
+          </li>
 
-      <ul class="dropdown-menu">
-        <li class="dropdown-menu__item">
-          <div
-            class="dropdown-menu__link"
-            @click="this.$router.push({ name: 'Profile' })"
-          >
-            Profile
-          </div>
-        </li>
-
-        <li class="dropdown-menu__item">
-          <div class="dropdown-menu__link" @click="logOut">Log out</div>
-        </li>
-      </ul>
-    </li>
+          <li class="dropdown-menu__item">
+            <div class="dropdown-menu__link" @click="logOut">Log out</div>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </header>
 </template>
 

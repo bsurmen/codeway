@@ -1,7 +1,7 @@
 <template>
   <div class="sign">
     <div class="logo">
-      <app-image :src="appLogo" />
+      <app-image :src="appLogo" alt="app logo" />
     </div>
     <div class="login">
       <app-login />

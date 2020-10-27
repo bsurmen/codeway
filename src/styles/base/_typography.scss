@@ -1,5 +1,5 @@
 body {
-  font-family: "Poppins Light";
+  font-family: "Poppins Light", $text-font-stack;
   color: $white;
   font-size: calc(1rem + 0.5vw);
 }
@@ -9,12 +9,12 @@ h4 {
 }
 
 button {
-  font-family: "Poppins Medium";
-  font-size: calc(1rem + .1vw)
+  font-family: "Poppins Medium", $text-font-stack;
+  font-size: calc(1rem + 0.1vw);
 }
 
 input {
   &::placeholder {
-    font-family: "Poppins Medium";
+    font-family: "Poppins Medium", $text-font-stack;
   }
 }
