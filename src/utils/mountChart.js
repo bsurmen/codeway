@@ -1,12 +1,18 @@
 import Chart from "chart.js";
 
-export const mountChart = (id, date, total, label) => {
-  var ctx = document.getElementById(id).getContext("2d");
-  var gradient = ctx.createLinearGradient(0, 0, 0, 200);
+export const mountChart = (id, date, total, label, isUpdated) => {
+  if (!isUpdated) createNewChart(id, date, total, label);
+
+  updateChart(id, date, total, label);
+};
+
+const createNewChart = (id, date, total, label) => {
+  const ctx = document.getElementById(id).getContext("2d");
+  const gradient = ctx.createLinearGradient(0, 0, 0, 200);
   gradient.addColorStop(0, "rgba(52, 55,103, 1)");
   gradient.addColorStop(1, "rgba(52,55,103,.1)");
 
-  new Chart(document.getElementById(id), {
+  const chart = new Chart(document.getElementById(id), {
     type: "line",
     data: {
       labels: date,
@@ -60,4 +66,10 @@ export const mountChart = (id, date, total, label) => {
       },
     },
   });
+
+  return chart;
+};
+
+const updateChart = (id, date, total, label) => {
+  createNewChart(id, date, total, label).update();
 };
