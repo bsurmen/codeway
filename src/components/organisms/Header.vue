@@ -1,39 +1,32 @@
 <template>
   <header class="header">
-    <div class="logo" @click="this.$router.push({ name: 'Home' })">
+    <div class="logo" @click="navigate('Home')">
       <app-image :src="logo" alt="app logo" />
     </div>
     <ul>
       <li
         class="menu__item menu__item--dropdown"
-        @click="toggle"
         :class="{ open: isOpen }"
+        @mousedown="toggleMenu"
       >
         <a class="menu__link menu__link--toggle" href="#">
           <i class="fas fa-user profile"></i>
           <i class="fas fa-sort-down profile down"></i>
         </a>
 
-        <ul class="dropdown-menu">
-          <li class="dropdown-menu__item">
+        <ul class="dropdown-menu" @mouseleave="toggleMenu">
+          <li
+            class="dropdown-menu__item"
+            v-for="(button, index) in subMenuItems"
+            :key="index"
+          >
             <div
               class="dropdown-menu__link"
-              @click="this.$router.push({ name: 'Home' })"
+              :class="{ active: isOpen && isActiveBtn(button.path) }"
+              @click="button.action(button.name)"
             >
-              Home
+              {{ button.name }}
             </div>
-          </li>
-          <li class="dropdown-menu__item">
-            <div
-              class="dropdown-menu__link"
-              @click="this.$router.push({ name: 'Profile' })"
-            >
-              Profile
-            </div>
-          </li>
-
-          <li class="dropdown-menu__item">
-            <div class="dropdown-menu__link" @click="logOut">Log out</div>
           </li>
         </ul>
       </li>
@@ -43,7 +36,7 @@
 
 <script>
 import Logo from "../../assets/images/hedwig-logo.png";
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, computed } from "vue";
 import { useRouter } from "vue-router";
 import Image from "../atoms/Image";
 import * as firebase from "firebase/app";
@@ -55,7 +48,17 @@ export default {
     appImage: Image,
   },
   setup() {
-    const data = reactive({ logo: Logo, loggedIn: false, isOpen: false });
+    const data = reactive({
+      logo: Logo,
+      loggedIn: false,
+      isOpen: false,
+      isActive: true,
+      subMenuItems: [
+        { name: "Home", action: navigate, path: "/" },
+        { name: "Profile", action: navigate, path: "/profile" },
+        { name: "Log out", action: logOut },
+      ],
+    });
 
     const router = useRouter();
 
@@ -68,19 +71,31 @@ export default {
       }
     }
 
+    const getCurrentPath = computed(() => router.currentRoute.value.path);
+
+    const isActiveBtn = (path) =>
+      getCurrentPath.value === path ? data.isActive : !data.isActive;
+
+    function navigate(path) {
+      router.push({ name: path });
+    }
+
     firebase.auth().onAuthStateChanged((user) => {
       data.loggedIn = !!user;
     });
 
-    function toggle() {
-      this.isOpen = !this.isOpen;
+    // Keeps state for dropdown menu.
+    function toggleMenu() {
+      data.isOpen = !data.isOpen;
     }
 
-    function close() {
-      this.isOpen = false;
-    }
-
-    return { ...toRefs(data), toggle, close, logOut };
+    return {
+      ...toRefs(data),
+      toggleMenu,
+      logOut,
+      navigate,
+      isActiveBtn,
+    };
   },
 };
 </script>
@@ -176,6 +191,10 @@ export default {
     color: $martinique;
     background-color: #ccc;
   }
+}
+
+.active {
+  background-color: #ccc;
 }
 </style>
 
