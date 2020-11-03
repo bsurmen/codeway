@@ -12,9 +12,10 @@
       v-model="password"
       placeholder="Password"
       className="radius--bottom"
+      autocomplete="false"
     />
     <button type="submit">Sign in</button>
-    <div class="error" v-if="error">{{ error.message }}</div>
+    <app-text class="error" v-if="error" :text="error" />
   </form>
 </template>
 
@@ -31,7 +32,7 @@ export default {
     appText: TextField,
   },
   setup() {
-    const login = reactive({ email: "", password: "", error: "" });
+    const login = reactive({ email: "", password: "", error: undefined });
     const router = useRouter();
 
     async function signIn() {
@@ -42,7 +43,7 @@ export default {
 
         router.replace({ name: "Home" });
       } catch (err) {
-        console.log(err);
+        login.error = err.message;
       }
     }
 
@@ -64,5 +65,10 @@ export default {
   &--bottom {
     border-radius: 0 0 8px 8px;
   }
+}
+
+.error {
+  color: $punch;
+  font-size: 0.5em;
 }
 </style>
