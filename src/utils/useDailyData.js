@@ -2,7 +2,7 @@ import { toRefs, reactive } from "vue";
 import { mountChart } from "./mountChart";
 import useFetch from "./useFetch";
 
-export default async function(id, url, label) {
+export default async function(id, url, label, isUpdated) {
   let dailyChartData = reactive({
     date: [],
     total: [],
@@ -23,7 +23,7 @@ export default async function(id, url, label) {
     dailyChartData.date.push(convertDateToString(date));
   });
 
-  mountChart(id, dailyChartData.date, dailyChartData.total, label);
+  mountChart(id, dailyChartData.date, dailyChartData.total, label, isUpdated);
 
   return { ...toRefs(dailyChartData) };
 }

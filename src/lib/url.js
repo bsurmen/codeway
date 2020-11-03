@@ -1,5 +1,5 @@
 export default {
-  baseURL: "https://codeway-dummy-rest-api.herokuapp.com/someapp",
+  baseURL: process.env.VUE_APP_BASE_URL,
   activeUsers: "/rt/activeUsers",
   downloads: "/rt/downloads",
   avgSessionDuration: "/rt/sessionDuration",

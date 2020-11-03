@@ -1,9 +1,8 @@
 import axios from "axios";
-import URL from "../lib/url";
 import { getUserToken } from "./firebase";
 
 export const customAxios = axios.create({
-  baseURL: URL.baseURL,
+  baseURL: process.env.VUE_APP_BASE_URL,
 });
 
 customAxios.interceptors.request.use(

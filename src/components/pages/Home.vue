@@ -108,6 +108,9 @@ export default {
 
     onMounted(() => {
       cardInfo.forEach(({ url, type }) => getInfoCardData(url, type));
+
+      
+    // setInterval(() => console.log("dd"), 1000)
     });
 
     return {
